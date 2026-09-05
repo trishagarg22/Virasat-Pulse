@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heritage: 'Cinzel', serif;
+  --font-display: 'Marcellus', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+  --color-terracotta: #C85A32;
+  --color-terracotta-dark: #A8431F;
+  --color-terracotta-light: #E0734C;
+
+  --color-maroon: #6B1D2F;
+  --color-maroon-dark: #4A121E;
+  --color-maroon-light: #8C2B42;
+
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E086;
+  --color-gold-dark: #A3811C;
+
+  --color-sandstone: #F7F3E9;
+  --color-sandstone-dark: #E6DDC8;
+  --color-sandstone-card: #221B17;
+
+  --color-ink: #14100E;
+  --color-ink-card: #1C1613;
+  --color-ink-border: #362A24;
+}
+
+/* Custom Heritage Styling Utilities */
+
+@layer utilities {
+  .font-heritage {
+    font-family: 'Cinzel', serif;
+  }
+  .font-display {
+    font-family: 'Marcellus', serif;
+  }
+  
+  /* Metallic Gold Gradient Text */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #F3E086 0%, #D4AF37 50%, #997A15 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Terracotta Fire Gradient Text */
+  .text-terracotta-gradient {
+    background: linear-gradient(135deg, #F0825B 0%, #C85A32 50%, #8C2B42 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Gold Shimmer Button Background */
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #C8991D 50%, #B3830E 100%);
+  }
+
+  .bg-gold-gradient:hover {
+    background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #C8991D 100%);
+  }
+
+  /* Terracotta Hero Gradient */
+  .bg-terracotta-gradient {
+    background: linear-gradient(135deg, #C85A32 0%, #99371D 50%, #6B1D2F 100%);
+  }
+
+  /* Heritage Card Glow Border */
+  .border-gold-glow {
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.08);
+  }
+
+  .border-gold-glow:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.18);
+  }
+}
+
+/* Background Mandala & Jali Motifs */
+.bg-mandala-pattern {
+  background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.04' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h40v40H40V0zM0 40h40v40H0V40z'/%3E%3Cpath d='M40 0L0 40h80L40 0zm0 80L0 40h80L40 80z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.bg-jali-mesh {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='none' stroke='%23c85a32' stroke-opacity='0.08' stroke-width='1.5'/%3E%3Ccircle cx='30' cy='30' r='10' fill='none' stroke='%23d4af37' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Indian Arch Clip-Path Accent */
+.arch-header {
+  clip-path: ellipse(120% 100% at 50% 0%);
+}
+
+.arch-top-card {
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #14100E;
+}
+::-webkit-scrollbar-thumb {
+  background: #362A24;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C85A32;
+}
+
+/* Leaflet map container styling */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: #14100E;
+}
