@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Compass, Sparkles, Menu, X, HelpCircle, Layers, SlidersHorizontal, Activity, Bot, Quote } from "lucide-react";
+import { Compass, Sparkles, Menu, X, HelpCircle, Layers, SlidersHorizontal, Activity, Bot, Quote, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar({ discoveredCount = 0, totalCount = 10 }) {
@@ -18,6 +18,7 @@ export default function Navbar({ discoveredCount = 0, totalCount = 10 }) {
     { name: "Curiosity Facts", targetId: "did-you-know-section", icon: HelpCircle },
     { name: "Era Layers", targetId: "delhi-layers-section", icon: Layers },
     { name: "Heritage Map", targetId: "heritage-map-section", icon: Compass },
+    { name: "Skill Cards", targetId: "heritage-skills-section", icon: Shield },
     { name: "Then vs Now", targetId: "then-vs-now-section", icon: SlidersHorizontal },
     { name: "Health Monitor", targetId: "heritage-health-section", icon: Activity },
     { name: "Delhi Remembers", targetId: "delhi-remembers-section", icon: Quote },
@@ -56,14 +57,14 @@ export default function Navbar({ discoveredCount = 0, totalCount = 10 }) {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden xl:flex items-center gap-1">
             {navSections.map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.targetId}
                   onClick={() => scrollToSection(item.targetId)}
-                  className="px-3.5 py-2 rounded-full text-xs font-medium text-amber-100/80 hover:text-amber-300 hover:bg-amber-900/30 transition-all flex items-center gap-1.5"
+                  className="px-3 py-2 rounded-full text-xs font-medium text-amber-100/80 hover:text-amber-300 hover:bg-amber-900/30 transition-all flex items-center gap-1.5"
                 >
                   <Icon className="w-3.5 h-3.5 text-amber-400" />
                   <span>{item.name}</span>
@@ -83,7 +84,7 @@ export default function Navbar({ discoveredCount = 0, totalCount = 10 }) {
           </div>
 
           {/* Mobile Hamburger Menu */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-xl text-amber-200 bg-stone-900 border border-amber-500/30 hover:border-amber-400 focus:outline-none"
@@ -102,7 +103,7 @@ export default function Navbar({ discoveredCount = 0, totalCount = 10 }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-stone-950 border-b border-amber-500/30 px-6 pt-3 pb-6 space-y-2"
+            className="xl:hidden bg-stone-950 border-b border-amber-500/30 px-6 pt-3 pb-6 space-y-2"
           >
             {navSections.map((item) => {
               const Icon = item.icon;

@@ -3,6 +3,7 @@ import HeroCinematic from "../components/HeroCinematic";
 import DidYouKnowGame from "../components/DidYouKnowGame";
 import DelhiLayersTimeline from "../components/DelhiLayersTimeline";
 import HeritageMap from "../components/dashboard/HeritageMap";
+import HeritageSkillCards from "../components/HeritageSkillCards";
 import ThenVsNowSlider from "../components/ThenVsNowSlider";
 import HeritageHealthSystem from "../components/HeritageHealthSystem";
 import WhatIfWeLostIt from "../components/WhatIfWeLostIt";
@@ -33,7 +34,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-stone-950 min-h-screen text-amber-50 selection:bg-amber-500 selection:text-stone-950 font-sans">
+    <div className="bg-transparent min-h-screen text-amber-50 selection:bg-amber-500 selection:text-stone-950 font-sans">
       {/* 1. CINEMATIC HERO */}
       <HeroCinematic
         onSelectChoice={(targetId) => {
@@ -51,30 +52,33 @@ export default function Home() {
       <DelhiLayersTimeline onSiteSelect={handleSiteSelect} />
 
       {/* 4. INTERACTIVE HERITAGE MAP */}
-      <div className="bg-stone-900 border-t border-b border-amber-500/20">
+      <div className="bg-stone-900/60 border-t border-b border-amber-500/20 backdrop-blur-md">
         <HeritageMap sites={HERITAGE_SITES} onSelectSite={handleSiteSelect} />
       </div>
 
-      {/* 5. "THEN VS NOW" SLIDER */}
+      {/* 5. HERITAGE SKILL CARDS DECK */}
+      <HeritageSkillCards onSiteSelect={handleSiteSelect} />
+
+      {/* 6. "THEN VS NOW" SLIDER */}
       <ThenVsNowSlider />
 
-      {/* 6. HERITAGE HEALTH MONITOR */}
+      {/* 7. HERITAGE HEALTH MONITOR */}
       <HeritageHealthSystem onSiteSelect={handleSiteSelect} />
 
-      {/* 7. "WHAT IF WE LOST IT?" REFLECTION */}
+      {/* 8. "WHAT IF WE LOST IT?" REFLECTION */}
       <WhatIfWeLostIt />
 
-      {/* 8. 🎲 SURPRISE ME STORY GENERATOR */}
+      {/* 9. 🎲 SURPRISE ME STORY GENERATOR */}
       <SurpriseMeGenerator onSiteSelect={handleSiteSelect} />
 
-      {/* 9. 🤖 ASK DELHI AI GUIDE */}
+      {/* 10. 🤖 ASK DELHI AI GUIDE */}
       <AskDelhiAI />
 
-      {/* 10. 🧓 DELHI REMEMBERS ORAL HISTORIES */}
+      {/* 11. 🧓 DELHI REMEMBERS ORAL HISTORIES */}
       <DelhiRemembers />
 
       {/* EMPOWERING CONCLUSION */}
-      <section className="py-20 bg-gradient-to-b from-stone-950 via-amber-950 to-stone-950 text-center relative overflow-hidden border-t border-amber-500/20">
+      <section className="py-20 bg-gradient-to-b from-stone-950/80 via-amber-950/60 to-stone-950/90 text-center relative overflow-hidden border-t border-amber-500/20 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-5xl mb-4">🕌 ✨ 🇮🇳</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-amber-100 mb-6">
