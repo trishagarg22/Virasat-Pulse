@@ -112,22 +112,22 @@ export const HERITAGE_SITES = [
     youthInvolvement: "68% High Student Visits",
     documentationScore: "95% 3D Scanned",
 
-    heroImage: "https://images.unsplash.com/photo-1597040663342-45b0fa8db95e?auto=format&fit=crop&w=1200&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1597040663342-45b0fa8db95e?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1200&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=80",
     
     // Photo Gallery
     galleryImages: [
       {
-        url: "https://images.unsplash.com/photo-1597040663342-45b0fa8db95e?auto=format&fit=crop&w=1000&q=80",
+        url: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1000&q=80",
         caption: "The 72.5m fluted red sandstone Qutub Minar tower"
       },
       {
-        url: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=80",
-        caption: "Intricate Arabic calligraphic stone carvings on Alai Darwaza"
+        url: "https://images.unsplash.com/photo-1545129139-1beb780cf337?auto=format&fit=crop&w=1000&q=80",
+        caption: "Intricate architectural ruins of the Quwwat-ul-Islam complex"
       },
       {
-        url: "https://images.unsplash.com/photo-1609946782782-b7b5f1a5cf44?auto=format&fit=crop&w=1000&q=80",
-        caption: "The 1,600-year-old rustless Iron Pillar of Chandragupta II"
+        url: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=80",
+        caption: "Alai Darwaza calligraphic arches and lattice screens"
       }
     ],
 
@@ -142,7 +142,7 @@ export const HERITAGE_SITES = [
         youthAdoption: "Traditional Reverence",
         status: "Historical Ruins",
         summary: "Major structural survey and repair of the upper balcony after an 1803 earthquake.",
-        image: "https://images.unsplash.com/photo-1597040663342-45b0fa8db95e?auto=format&fit=crop&w=600&q=80"
+        image: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=80"
       },
       {
         year: 1993,
@@ -151,7 +151,7 @@ export const HERITAGE_SITES = [
         youthAdoption: "45% School Tourism",
         status: "Global Landmark",
         summary: "Inscribed as a UNESCO World Heritage site, establishing strict buffer zones and conservation protocols.",
-        image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80"
+        image: "https://images.unsplash.com/photo-1545129139-1beb780cf337?auto=format&fit=crop&w=600&q=80"
       },
       {
         year: 2026,
@@ -160,7 +160,7 @@ export const HERITAGE_SITES = [
         youthAdoption: "68% High Engagement",
         status: "🟢 Stable & Thriving",
         summary: "High tourist footfall and complete LiDAR 3D spatial mapping ensure ongoing protection, though urban air pollution requires continuous monitoring.",
-        image: "https://images.unsplash.com/photo-1609946782782-b7b5f1a5cf44?auto=format&fit=crop&w=600&q=80"
+        image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80"
       }
     ],
 
