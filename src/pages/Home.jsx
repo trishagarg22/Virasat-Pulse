@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Compass,
   BookOpen,
@@ -9,22 +9,26 @@ import {
   MapPin,
   Clock,
   ArrowRight,
-  Flame,
-  CheckCircle2,
-  HelpCircle,
-  Volume2,
+  Maximize2,
   ChevronRight,
   ShieldAlert,
   Sliders,
-  PlusCircle
+  PlusCircle,
+  X
 } from 'lucide-react';
 import { HERITAGE_SITES } from '../data/heritageSites';
 import { QUIZZES } from '../data/quizzes';
+import HeritageMap from '../components/dashboard/HeritageMap';
 
 export default function Home() {
+  const navigate = useNavigate();
   const sampleQuiz = QUIZZES[0].questions[0];
   const [selectedOption, setSelectedOption] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
+
+  // Hero Enlarge Map Modal State
+  const [isMapEnlarged, setIsMapEnlarged] = useState(false);
+  const [selectedHeroSite, setSelectedHeroSite] = useState(null);
 
   const intelligenceFeatures = [
     {
@@ -60,7 +64,7 @@ export default function Home() {
   return (
     <div className="space-y-24 pb-20">
       
-      {/* HERO SECTION - REPOSITIONED FOR HERITAGE INTELLIGENCE PLATFORM */}
+      {/* HERO SECTION */}
       <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden bg-mandala-pattern">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#C85A32]/15 via-[#D4AF37]/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
@@ -74,7 +78,6 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7 space-y-6 text-center lg:text-left"
             >
-              {/* Badge Pill */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#241E1C] border border-[#D4AF37]/40 shadow-inner">
                 <Sparkles className="w-4 h-4 text-[#C85A32] animate-pulse" />
                 <span className="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider">
@@ -82,19 +85,16 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Core Tagline: Explore Heritage. Travel Through Time. Protect What Matters. */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heritage font-extrabold text-[#F7F3E9] leading-tight sm:leading-tight">
                 Explore Heritage. <br />
                 <span className="text-gold-gradient">Travel Through Time.</span> <br />
                 <span className="text-terracotta-gradient">Protect What Matters.</span>
               </h1>
 
-              {/* Subheading */}
               <p className="text-base sm:text-lg text-[#EFE6D5]/80 max-w-2xl leading-relaxed mx-auto lg:mx-0">
                 Turn passive history into active intelligence. Map endangered crafts, travel across 200 years of temporal change, and analyze AI risk scores to protect India's living cultural legacy.
               </p>
 
-              {/* Main Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Link
                   to="/dashboard"
@@ -105,33 +105,33 @@ export default function Home() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
 
-                <Link
-                  to="/stories"
+                <button
+                  onClick={() => setIsMapEnlarged(true)}
                   className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-[#1C1613] border border-[#D4AF37]/50 text-[#F7F3E9] font-medium text-base hover:bg-[#2A221E] hover:border-[#D4AF37] transition-all flex items-center justify-center gap-2"
                 >
-                  <BookOpen className="w-5 h-5 text-[#D4AF37]" />
-                  <span>Oral Folklore & Lore</span>
-                </Link>
+                  <Maximize2 className="w-5 h-5 text-[#D4AF37]" />
+                  <span>Enlarge Map View</span>
+                </button>
               </div>
 
-              {/* Intelligence Stats Counter Ribbon */}
+              {/* Stats Ribbon */}
               <div className="pt-6 border-t border-[#362A24]/60 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
                 <div>
-                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#D4AF37]">1800-2026</div>
-                  <div className="text-xs text-[#EFE6D5]/60">Temporal Slider Range</div>
+                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#D4AF37]">4 Delhi Sites</div>
+                  <div className="text-xs text-[#EFE6D5]/60">Tracked on Map</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#C85A32]">78% Risk</div>
-                  <div className="text-xs text-[#EFE6D5]/60">AI Alert Index Tracked</div>
+                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#C85A32]">1800-2026</div>
+                  <div className="text-xs text-[#EFE6D5]/60">Timeline Range</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#F7F3E9]">100%</div>
-                  <div className="text-xs text-[#EFE6D5]/60">Community Vault Open</div>
+                  <div className="text-xl sm:text-2xl font-heritage font-bold text-[#F7F3E9]">AI Engine</div>
+                  <div className="text-xs text-[#EFE6D5]/60">Vulnerability Index</div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Visual Banner: Dashboard Teaser Card */}
+            {/* Right Visual Column: INTERACTIVE MAP PREVIEW (Replaces the single hardcoded place image) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -141,52 +141,51 @@ export default function Home() {
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-[#D4AF37]/30 via-[#C85A32]/30 to-[#6B1D2F]/30 blur-xl opacity-70 animate-pulse"></div>
                 
-                <div className="relative bg-[#1C1613] rounded-3xl border border-[#D4AF37]/40 overflow-hidden shadow-2xl p-6 space-y-5">
+                {/* Hero Map Card Container */}
+                <div className="relative bg-[#1C1613] rounded-3xl border border-[#D4AF37]/40 overflow-hidden shadow-2xl p-5 space-y-4">
                   
-                  {/* Hero Card */}
-                  <div className="relative h-60 rounded-2xl overflow-hidden group">
-                    <img
-                      src={HERITAGE_SITES[0].heroImage}
-                      alt="Zardozi Embroidery Craft"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  {/* Embedded Leaflet Map Preview with Location Names */}
+                  <div className="relative h-72 rounded-2xl overflow-hidden border border-[#362A24] group cursor-pointer">
+                    <HeritageMap
+                      sites={HERITAGE_SITES}
+                      selectedSite={selectedHeroSite}
+                      onSelectSite={(site) => {
+                        setSelectedHeroSite(site);
+                        setIsMapEnlarged(true);
+                      }}
+                      currentYear={2026}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#14100E] via-black/40 to-transparent"></div>
-                    
-                    <div className="absolute top-4 left-4 bg-rose-950/80 backdrop-blur-md px-3 py-1 rounded-full border border-rose-500/50 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-                      <span className="text-xs font-bold text-rose-300">🔴 High Risk (78%)</span>
-                    </div>
 
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-xl font-heritage font-bold text-white drop-shadow">
-                        Zardozi Metallic Thread Craft
-                      </h3>
-                      <p className="text-xs text-[#EFE6D5]/80 flex items-center gap-1 mt-0.5">
-                        <MapPin className="w-3.5 h-3.5 text-[#C85A32]" /> Chandni Chowk, Old Delhi
-                      </p>
-                    </div>
+                    {/* Enlarge Map Overlay Button on top of map */}
+                    <button
+                      onClick={() => setIsMapEnlarged(true)}
+                      className="absolute bottom-3 right-3 z-[450] px-3.5 py-1.5 rounded-full bg-[#14100E]/90 backdrop-blur-md border border-[#D4AF37]/40 text-xs font-bold text-[#D4AF37] hover:text-white hover:bg-[#C85A32] shadow-lg flex items-center gap-1.5 transition-all"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Click to Enlarge Map</span>
+                    </button>
                   </div>
 
-                  {/* Virasat AI Insight Teaser Card */}
-                  <div className="bg-[#241E1C] rounded-xl p-4 border border-[#D4AF37]/40 space-y-2">
+                  {/* AI Risk Teaser snippet below map */}
+                  <div className="bg-[#241E1C] rounded-xl p-3.5 border border-[#D4AF37]/30 space-y-1.5">
                     <div className="flex items-center justify-between text-xs text-[#D4AF37]">
                       <span className="font-bold flex items-center gap-1">
-                        <Sparkles className="w-3.5 h-3.5 text-[#C85A32]" /> AI Risk Engine
+                        <Sparkles className="w-3.5 h-3.5 text-[#C85A32]" /> Delhi Heritage Radar
                       </span>
-                      <span className="text-[10px] text-[#EFE6D5]/60">140 Masters Left</span>
+                      <span className="text-[10px] text-[#C85A32] font-bold">2 Sites At Risk</span>
                     </div>
-                    <p className="text-xs text-[#EFE6D5]/90 italic leading-relaxed">
-                      "AI projects a 55% loss of master Zardozi hand-embroiderers in Old Delhi within 7 years unless youth apprentice grants are established."
+                    <p className="text-[11px] text-[#EFE6D5]/80 leading-relaxed">
+                      Click any location marker on the map above to view pictures, travel through time, or expand to full-screen view.
                     </p>
                   </div>
 
-                  <Link
-                    to="/dashboard"
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C85A32] to-[#B34726] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow"
+                  <button
+                    onClick={() => navigate('/dashboard')}
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C85A32] to-[#B34726] hover:from-[#E0734C] hover:to-[#C85A32] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow transition-all"
                   >
                     <span>Launch Full Interactive Map & Dashboard</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </button>
 
                 </div>
               </div>
@@ -196,7 +195,61 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURES SECTION: FOUR PILLARS OF HERITAGE INTELLIGENCE */}
+      {/* FULL-SCREEN ENLARGED MAP MODAL */}
+      <AnimatePresence>
+        {isMapEnlarged && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md p-4 sm:p-8 flex flex-col space-y-4"
+          >
+            {/* Modal Top Bar */}
+            <div className="flex items-center justify-between bg-[#1C1613] p-4 rounded-2xl border border-[#D4AF37]/40 shadow-xl">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🛕</span>
+                <div>
+                  <h3 className="font-heritage font-bold text-lg text-white">
+                    Enlarged Heritage Intelligence Map
+                  </h3>
+                  <p className="text-xs text-[#EFE6D5]/70">
+                    Click any marker to inspect pictures, timelines, and AI risk scores.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Link
+                  to="/dashboard"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C85A32] to-[#B34726] text-white font-bold text-xs shadow"
+                >
+                  Open Full Workspace →
+                </Link>
+                <button
+                  onClick={() => setIsMapEnlarged(false)}
+                  className="p-2 rounded-xl bg-[#14100E] border border-[#362A24] text-white hover:bg-rose-900/60"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Expanded Full-Height Leaflet Map Container */}
+            <div className="flex-1 w-full rounded-3xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-2xl relative">
+              <HeritageMap
+                sites={HERITAGE_SITES}
+                selectedSite={selectedHeroSite}
+                onSelectSite={(site) => {
+                  setSelectedHeroSite(site);
+                }}
+                currentYear={2026}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FEATURES SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <span className="text-xs font-bold text-[#C85A32] uppercase tracking-widest px-3 py-1 rounded-full bg-[#C85A32]/10 border border-[#C85A32]/30">
