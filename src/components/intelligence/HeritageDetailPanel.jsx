@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, Clock, Users, ShieldAlert, Award, Sparkles, Compass, BookOpen, AlertTriangle } from 'lucide-react';
+import { X, MapPin, Clock, Users, ShieldAlert, Award, Sparkles, Compass, BookOpen, AlertTriangle, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import HeritageJourneyView from './HeritageJourneyView';
 import VirasatIntelligencePanel from './VirasatIntelligencePanel';
 
 export default function HeritageDetailPanel({ site, onClose, currentYear, onOpenSaveModal }) {
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'journey' | 'intelligence'
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
   if (!site) return null;
+
+  const gallery = site.galleryImages && site.galleryImages.length > 0 
+    ? site.galleryImages 
+    : [{ url: site.heroImage || site.thumbnail, caption: site.name }];
+
+  const currentPhoto = gallery[selectedPhotoIndex] || gallery[0];
+
+  const handleNextPhoto = () => {
+    setSelectedPhotoIndex((prev) => (prev + 1) % gallery.length);
+  };
+
+  const handlePrevPhoto = () => {
+    setSelectedPhotoIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
+  };
 
   return (
     <AnimatePresence>
@@ -16,28 +31,28 @@ export default function HeritageDetailPanel({ site, onClose, currentYear, onOpen
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: '100%', opacity: 0 }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-        className="fixed inset-y-0 right-0 z-50 w-full sm:w-[540px] bg-[#1C1613] border-l border-[#362A24] shadow-2xl overflow-y-auto flex flex-col text-[#EFE6D5]"
+        className="fixed inset-y-0 right-0 z-50 w-full sm:w-[560px] bg-[#1C1613] border-l border-[#362A24] shadow-2xl overflow-y-auto flex flex-col text-[#EFE6D5]"
       >
         
-        {/* Top Sticky Header */}
-        <div className="relative h-64 sm:h-72 shrink-0 overflow-hidden">
+        {/* Top Header & Photo Carousel */}
+        <div className="relative h-64 sm:h-72 shrink-0 overflow-hidden group">
           <img
-            src={site.heroImage || site.thumbnail}
+            src={currentPhoto.url}
             alt={site.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1C1613] via-[#1C1613]/40 to-black/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1C1613] via-[#1C1613]/30 to-black/50"></div>
 
           {/* Close Drawer Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-[#14100E]/80 backdrop-blur-md border border-[#362A24] text-[#EFE6D5] hover:text-white"
+            className="absolute top-4 right-4 p-2 rounded-full bg-[#14100E]/80 backdrop-blur-md border border-[#362A24] text-[#EFE6D5] hover:text-white z-10"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Status Badge */}
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 z-10">
             <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-lg border border-white/20 backdrop-blur-md ${
               site.riskLevel === 'AT_RISK'
                 ? 'bg-rose-900/90 text-rose-200'
@@ -49,19 +64,59 @@ export default function HeritageDetailPanel({ site, onClose, currentYear, onOpen
             </span>
           </div>
 
-          {/* Title & Location Overlay */}
-          <div className="absolute bottom-4 left-5 right-5 space-y-1">
-            <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider">
-              {site.category} • {site.dynasty}
-            </span>
+          {/* Image Navigation Arrows */}
+          {gallery.length > 1 && (
+            <>
+              <button
+                onClick={handlePrevPhoto}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/90 transition-colors z-10"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleNextPhoto}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/90 transition-colors z-10"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </>
+          )}
+
+          {/* Image Caption & Title Overlay */}
+          <div className="absolute bottom-4 left-5 right-5 space-y-1 z-10">
+            <div className="flex items-center justify-between text-xs text-[#D4AF37]">
+              <span className="font-bold uppercase tracking-wider">{site.category} • {site.dynasty}</span>
+              {gallery.length > 1 && (
+                <span className="bg-black/60 px-2 py-0.5 rounded text-[10px] text-white">
+                  Photo {selectedPhotoIndex + 1} of {gallery.length}
+                </span>
+              )}
+            </div>
             <h2 className="text-2xl sm:text-3xl font-heritage font-bold text-white leading-tight drop-shadow">
               {site.name}
             </h2>
-            <p className="text-xs text-[#EFE6D5]/80 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#C85A32]" /> {site.location}
+            <p className="text-xs text-[#EFE6D5]/90 flex items-center gap-1 italic">
+              <ImageIcon className="w-3.5 h-3.5 text-[#C85A32]" /> {currentPhoto.caption}
             </p>
           </div>
         </div>
+
+        {/* Thumbnail Selector Bar */}
+        {gallery.length > 1 && (
+          <div className="flex items-center gap-2 px-4 py-2 bg-[#14100E] border-b border-[#362A24] overflow-x-auto">
+            {gallery.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedPhotoIndex(idx)}
+                className={`relative h-12 w-16 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${
+                  selectedPhotoIndex === idx ? 'border-[#D4AF37] scale-105 shadow' : 'border-transparent opacity-60 hover:opacity-100'
+                }`}
+              >
+                <img src={img.url} alt="thumbnail" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="flex items-center justify-around border-b border-[#362A24] bg-[#14100E] px-4">
@@ -84,7 +139,7 @@ export default function HeritageDetailPanel({ site, onClose, currentYear, onOpen
                 : 'border-transparent text-[#EFE6D5]/60 hover:text-white'
             }`}
           >
-            <Clock className="w-4 h-4" /> Then vs Now Timeline
+            <Clock className="w-4 h-4" /> Timeline Slider
           </button>
 
           <button
@@ -145,13 +200,13 @@ export default function HeritageDetailPanel({ site, onClose, currentYear, onOpen
                 </div>
               )}
 
-              {/* CTA to Timeline & AI */}
+              {/* Action Buttons */}
               <div className="pt-4 flex gap-3">
                 <button
                   onClick={() => setActiveTab('journey')}
                   className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#C85A32] to-[#B34726] text-white font-medium text-xs sm:text-sm shadow flex items-center justify-center gap-2"
                 >
-                  <span>View Heritage Journey →</span>
+                  <span>Explore Timeline Slider →</span>
                 </button>
                 <button
                   onClick={onOpenSaveModal}
@@ -163,7 +218,7 @@ export default function HeritageDetailPanel({ site, onClose, currentYear, onOpen
             </div>
           )}
 
-          {/* TAB 2: HERITAGE JOURNEY (THEN VS NOW TIMELINE) */}
+          {/* TAB 2: HERITAGE TIMELINE SLIDER */}
           {activeTab === 'journey' && (
             <HeritageJourneyView site={site} currentYear={currentYear} />
           )}
