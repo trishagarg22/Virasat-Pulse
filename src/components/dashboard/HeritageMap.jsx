@@ -3,36 +3,46 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { ArrowRight } from 'lucide-react';
 
-// Custom SVG Markers displaying both Risk Pin AND Visible Location Name Label
-const createRiskIcon = (riskLevel, siteName) => {
-  let color = '#C85A32'; // Red default
+// Custom SVG Markers displaying Photo Thumbnail + Risk Ring + Visible Location Name Label
+const createRiskIcon = (riskLevel, siteName, thumbnail) => {
+  let borderColor = '#C85A32'; // Red default
   let glowColor = 'rgba(200, 90, 50, 0.4)';
-  let label = '🔴';
+  let riskBadge = '🔴';
 
   if (riskLevel === 'VULNERABLE') {
-    color = '#D4AF37'; // Antique Gold
+    borderColor = '#D4AF37'; // Antique Gold
     glowColor = 'rgba(212, 175, 55, 0.4)';
-    label = '🟠';
+    riskBadge = '🟠';
   } else if (riskLevel === 'THRIVING') {
-    color = '#10B981'; // Emerald Green
+    borderColor = '#10B981'; // Emerald Green
     glowColor = 'rgba(16, 185, 129, 0.4)';
-    label = '🟢';
+    riskBadge = '🟢';
   }
 
-  // HTML combining marker pin + prominent name badge
+  // HTML combining site picture thumbnail + risk status badge + location name tag
   const svgHtml = `
     <div style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; transform: translate(-50%, -50%);">
       
-      <!-- Marker Pin with Glow -->
-      <div style="position: relative; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;">
-        <div style="position: absolute; width: 34px; height: 34px; border-radius: 50%; background: ${glowColor}; animation: pulse 2s infinite;"></div>
-        <div style="width: 26px; height: 26px; border-radius: 50%; background: #14100E; border: 2px solid ${color}; display: flex; align-items: center; justify-content: center; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.6);">
-          ${label}
+      <!-- Photo Thumbnail Button Container -->
+      <div style="position: relative; width: 44px; height: 44px; display: flex; items-center; justify-content: center;">
+        
+        <!-- Pulse Glow Layer -->
+        <div style="position: absolute; width: 44px; height: 44px; border-radius: 50%; background: ${glowColor}; animation: pulse 2s infinite;"></div>
+        
+        <!-- Heritage Site Picture Circle -->
+        <div style="position: relative; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; border: 2.5px solid ${borderColor}; box-shadow: 0 4px 14px rgba(0,0,0,0.8); background: #14100E;">
+          <img src="${thumbnail}" style="width: 100%; height: 100%; object-fit: cover;" alt="${siteName}" />
         </div>
+
+        <!-- Mini Risk Badge Overlay -->
+        <div style="position: absolute; top: -3px; right: -3px; background: #14100E; border: 1px solid ${borderColor}; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 9px;">
+          ${riskBadge}
+        </div>
+
       </div>
 
       <!-- Visible Location Name Label Badge -->
-      <div style="margin-top: 3px; background: rgba(20, 16, 14, 0.92); border: 1px solid ${color}; border-radius: 8px; padding: 2px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.7); backdrop-filter: blur(4px); white-space: nowrap; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700; color: #F7F3E9; letter-spacing: 0.02em;">
+      <div style="margin-top: 4px; background: rgba(20, 16, 14, 0.94); border: 1px solid ${borderColor}; border-radius: 8px; padding: 2px 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.8); backdrop-filter: blur(4px); white-space: nowrap; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700; color: #F7F3E9; letter-spacing: 0.02em;">
         ${siteName}
       </div>
 
@@ -41,10 +51,10 @@ const createRiskIcon = (riskLevel, siteName) => {
 
   return L.divIcon({
     html: svgHtml,
-    className: 'custom-risk-marker-with-label',
-    iconSize: [120, 50],
-    iconAnchor: [60, 25],
-    popupAnchor: [0, -25]
+    className: 'custom-risk-marker-with-photo',
+    iconSize: [120, 65],
+    iconAnchor: [60, 32],
+    popupAnchor: [0, -32]
   });
 };
 
@@ -89,7 +99,7 @@ export default function HeritageMap({ sites, selectedSite, onSelectSite, current
           <Marker
             key={site.id}
             position={site.coordinates}
-            icon={createRiskIcon(site.riskLevel, site.shortName || site.name)}
+            icon={createRiskIcon(site.riskLevel, site.shortName || site.name, site.thumbnail)}
             eventHandlers={{
               click: () => onSelectSite(site),
             }}
@@ -105,7 +115,7 @@ export default function HeritageMap({ sites, selectedSite, onSelectSite, current
                   {site.name}
                 </h4>
 
-                {/* Thumbnail Preview */}
+                {/* Picture Preview */}
                 <div className="h-24 w-full rounded-lg overflow-hidden border border-[#362A24]">
                   <img src={site.thumbnail} alt={site.name} className="w-full h-full object-cover" />
                 </div>
