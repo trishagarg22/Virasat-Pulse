@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Shield, Flame, Compass, ChevronRight, RotateCw, CheckCircle, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import { Sparkles, Shield, ChevronRight, Zap } from "lucide-react";
 import { HERITAGE_SITES } from "../data/heritageSites";
 
-// Map each site to a Skill Card concept with unique stats, tiers, and skill traits
+// Map each site to an Image-Led Skill Card
 const SKILL_CARD_DATA = HERITAGE_SITES.map((site, index) => {
   let tier = "TIER I • ANCIENT LEGACY";
   let traitName = "Historical Endurance";
@@ -14,7 +14,7 @@ const SKILL_CARD_DATA = HERITAGE_SITES.map((site, index) => {
   if (site.id.includes("mehrauli")) {
     tier = "TIER III • MYSTICAL METALLURGY";
     traitName = "Rust-proof Misawite Armor";
-    traitDesc = "1,600 years without rusting in open air; protected by passive iron hydrogen phosphate.";
+    traitDesc = "1,600 years without rusting in open air; protected by passive iron phosphate.";
     powerScore = 99;
     skillCategory = "Ancient Craft & Metallurgy";
   } else if (site.id.includes("chandni-chowk")) {
@@ -57,16 +57,14 @@ const SKILL_CARD_DATA = HERITAGE_SITES.map((site, index) => {
     powerScore,
     skillCategory,
     level: 1000 + (index * 85),
-    cardColor: site.healthStatus === "NEEDS_ATTENTION" ? "from-red-900/60 via-amber-950/80 to-stone-950" : "from-amber-900/60 via-stone-900 to-stone-950"
   };
 });
 
 export default function HeritageSkillCards({ onSelectSite }) {
   const [filterCategory, setFilterCategory] = useState("ALL");
-  const [flippedCardId, setFlippedCardId] = useState(null);
 
   const categories = [
-    { id: "ALL", label: "All Heritage Skill Cards" },
+    { id: "ALL", label: "All Relic Cards" },
     { id: "Living Guild Crafts", label: "🧵 Living Guilds" },
     { id: "Imperial Architecture", label: "🏛 Imperial Architecture" },
     { id: "Ancient Craft & Metallurgy", label: "⚡ Metallurgy & Secrets" },
@@ -79,35 +77,32 @@ export default function HeritageSkillCards({ onSelectSite }) {
   });
 
   return (
-    <section id="heritage-skills-section" className="py-24 relative overflow-hidden text-amber-50">
-      {/* Background Decorative Ambient Radial Light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-r from-amber-500/10 via-terracotta/15 to-amber-600/10 rounded-full blur-[140px] pointer-events-none"></div>
-
+    <section id="heritage-skills-section" className="py-28 sm:py-36 relative overflow-hidden text-amber-50">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-900/40 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 shadow-lg backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Interactive Relic Skill Deck</span>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-stone-900 border border-amber-500/20 text-stone-300 text-xs font-semibold uppercase tracking-wider mb-4">
+            <Shield className="w-4 h-4 text-amber-400" />
+            <span>Image-Led Relic Deck</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-amber-100 mb-4">
-            📜 Delhi Heritage Skill Cards
+          <h2 className="text-4xl sm:text-5xl font-serif font-bold text-amber-100 mb-4">
+            📜 Heritage Skill Cards
           </h2>
-          <p className="text-amber-200/80 max-w-xl mx-auto text-sm sm:text-base font-sans">
-            Every historic site in Delhi is a living skill card. Collect knowledge, inspect secret traits, and flip cards to unlock site lore.
+          <p className="text-stone-300 max-w-xl mx-auto text-base font-sans leading-relaxed">
+            Discover Delhi's living heritage skills, architectural traits, and ancient lineages.
           </p>
         </div>
 
-        {/* Category Filter Chips */}
-        <div className="flex items-center justify-center flex-wrap gap-2.5 mb-12">
+        {/* Muted Filter Chips */}
+        <div className="flex items-center justify-center flex-wrap gap-3 mb-16">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setFilterCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${
                 filterCategory === cat.id
-                  ? "bg-amber-500 text-stone-950 border-amber-400 shadow-lg shadow-amber-500/20 scale-105"
-                  : "bg-stone-950/80 border-amber-500/20 text-amber-200/70 hover:border-amber-400/50 hover:text-amber-100"
+                  ? "bg-amber-500 text-stone-950 border-amber-400 shadow-lg scale-105"
+                  : "bg-stone-900/90 border-amber-500/20 text-stone-300 hover:text-amber-100"
               }`}
             >
               {cat.label}
@@ -115,95 +110,78 @@ export default function HeritageSkillCards({ onSelectSite }) {
           ))}
         </div>
 
-        {/* Skill Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCards.map((card) => {
-            const isFlipped = flippedCardId === card.id;
+        {/* IMAGE-FIRST CARDS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filteredCards.map((card) => (
+            <motion.div
+              key={card.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-stone-900/90 border border-amber-500/20 hover:border-amber-400/50 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between group transition-all"
+            >
+              <div>
+                {/* DOMINANT HERO IMAGE WITH GRADIENT SCRIM OVERLAY */}
+                <div className="relative h-64 sm:h-72 w-full overflow-hidden">
+                  <img
+                    src={card.heroImage || card.thumbnail}
+                    alt={card.shortName}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent"></div>
 
-            return (
-              <div
-                key={card.id}
-                className="perspective-1000 min-h-[460px] relative group"
-              >
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full h-full relative"
-                >
-                  {/* FRONT OF SKILL CARD */}
-                  <div
-                    className={`w-full h-full rounded-3xl p-6 bg-gradient-to-b ${card.cardColor} border-2 border-amber-500/40 hover:border-amber-300 shadow-2xl backdrop-blur-xl flex flex-col justify-between transition-all duration-300 relative overflow-hidden group-hover:shadow-amber-500/15`}
-                  >
-                    {/* Top Tier & Level Badge */}
-                    <div>
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-amber-500/20">
-                        <span className="text-[10px] font-mono font-bold text-amber-400 tracking-wider">
-                          {card.tier}
-                        </span>
-                        <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-stone-950/80 border border-amber-500/30 text-[10px] font-mono text-amber-300">
-                          <Zap className="w-3 h-3 text-amber-400" />
-                          <span>LVL {card.level}</span>
-                        </div>
-                      </div>
-
-                      {/* Card Photo Frame with Golden Border */}
-                      <div className="relative h-44 rounded-2xl overflow-hidden border border-amber-500/40 shadow-inner mb-4 group-hover:scale-[1.02] transition-transform">
-                        <img
-                          src={card.thumbnail}
-                          alt={card.shortName}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent"></div>
-                        <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-amber-300">
-                          <span>📍 {card.shortName}</span>
-                          <span className="bg-stone-950/80 px-2 py-0.5 rounded border border-amber-500/30">
-                            {card.type}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Title & Category */}
-                      <h3 className="text-xl font-serif font-bold text-amber-100 mb-1">
-                        {card.name}
-                      </h3>
-                      <span className="text-xs font-mono text-amber-400/80 block mb-3">
-                        Category: {card.skillCategory}
-                      </span>
-
-                      {/* Unique Skill Trait Box */}
-                      <div className="p-3.5 rounded-2xl bg-stone-950/80 border border-amber-500/30 mb-4">
-                        <div className="flex items-center justify-between text-xs font-bold text-amber-300 mb-1">
-                          <span className="flex items-center gap-1">
-                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                            Skill Trait: {card.traitName}
-                          </span>
-                          <span className="text-[10px] text-amber-400 font-mono">
-                            Power: {card.powerScore}/100
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-amber-200/80 line-clamp-2 leading-relaxed">
-                          {card.traitDesc}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Card Actions */}
-                    <div className="flex items-center gap-3 pt-3 border-t border-amber-500/20">
-                      <button
-                        onClick={() => onSelectSite && onSelectSite(card)}
-                        className="flex-1 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-md"
-                      >
-                        <span>Unlock Place Lore</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
+                  {/* Top Level Pill */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold text-amber-300 bg-stone-950/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      {card.tier}
+                    </span>
+                    <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-950/80 backdrop-blur-md text-[10px] font-mono text-amber-400 border border-amber-500/30">
+                      <Zap className="w-3 h-3 text-amber-400" />
+                      <span>LVL {card.level}</span>
                     </div>
                   </div>
-                </motion.div>
+
+                  {/* Bottom Image Overlay Text */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <span className="text-xs text-amber-400 font-mono block mb-1">
+                      📍 {card.shortName} • {card.type}
+                    </span>
+                    <h3 className="text-2xl font-serif font-bold text-white leading-tight">
+                      {card.name}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Short Skill Trait Caption */}
+                <div className="p-6 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-bold text-amber-300">
+                    <span className="flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-amber-400" />
+                      <span>{card.traitName}</span>
+                    </span>
+                    <span className="text-stone-400 font-mono text-[11px]">
+                      Power: {card.powerScore}/100
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-300 leading-relaxed font-sans line-clamp-2">
+                    {card.traitDesc}
+                  </p>
+                </div>
               </div>
-            );
-          })}
+
+              {/* Single Vivid Gold CTA Button per card */}
+              <div className="p-6 pt-0">
+                <button
+                  onClick={() => onSelectSite && onSelectSite(card)}
+                  className="w-full py-3 px-4 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md"
+                >
+                  <span>Explore Place Story</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
