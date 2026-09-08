@@ -5,135 +5,90 @@
   --font-display: 'Marcellus', serif;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
 
-  --color-terracotta: #C85A32;
-  --color-terracotta-dark: #A8431F;
-  --color-terracotta-light: #E0734C;
+  /* Navy Blue & Gold Brand Colors */
+  --color-[#0B1726]: #0B1726;
+  --color-[#0F1F33]: #0F1F33;
+  --color-[#132438]: #132438;
+  --color-[#1E3A5F]: #1E3A5F;
+  --color-[#2A4B7C]: #2A4B7C;
 
-  --color-maroon: #6B1D2F;
-  --color-maroon-dark: #4A121E;
-  --color-maroon-light: #8C2B42;
+  --color-gold: #F59E0B;
+  --color-gold-light: #FCD34D;
+  --color-gold-dark: #D97706;
 
-  --color-gold: #D4AF37;
-  --color-gold-light: #F3E086;
-  --color-gold-dark: #A3811C;
+  --color-sandstone: #F8FAFC;
+  --color-slate-text: #94A3B8;
 
-  --color-sandstone: #F7F3E9;
-  --color-sandstone-dark: #E6DDC8;
-  --color-sandstone-card: #221B17;
-
-  --color-ink: #0A0807;
-  --color-ink-card: #181210;
-  --color-ink-border: #362A24;
+  /* Status Colors */
+  --color-status-thriving: #10B981;
+  --color-status-attention: #EAB308;
+  --color-status-atrisk: #F97316;
+  --color-status-critical: #EF4444;
 }
 
-/* Global Atmosphere & Rich Heritage Background across entire website */
+/* Global Body Styling (Navy Blue Base + Glassmorphism Grid Overlay) */
 body {
-  background-color: #0A0807;
+  background-color: #0B1726;
   background-image: 
-    radial-gradient(circle 800px at 50% 100px, rgba(92, 24, 39, 0.45) 0%, rgba(54, 16, 26, 0.25) 45%, transparent 80%),
-    radial-gradient(circle 600px at 20% 600px, rgba(168, 67, 31, 0.2) 0%, transparent 70%),
-    radial-gradient(circle 700px at 80% 1200px, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    radial-gradient(circle 800px at 50% -100px, rgba(30, 58, 95, 0.45) 0%, rgba(15, 31, 51, 0.3) 50%, transparent 80%),
+    radial-gradient(circle 600px at 100% 40%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
+    radial-gradient(circle 600px at 0% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
   background-attachment: fixed;
-  color: #FEF3C7;
+  color: #F8FAFC;
   min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Overlay Subtle Jali Texture Layer globally */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.3' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h40v40H40V0zM0 40h40v40H0V40z'/%3E%3Cpath d='M40 0L0 40h80L40 0zm0 80L0 40h80L40 80z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 80px;
+/* Glassmorphism Panel Utilities */
+.glass-panel {
+  background: rgba(19, 36, 56, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 11, 0.18);
 }
 
-/* Custom Heritage Styling Utilities */
-
-@layer utilities {
-  .font-heritage {
-    font-family: 'Cinzel', serif;
-  }
-  .font-display {
-    font-family: 'Marcellus', serif;
-  }
-  
-  /* Metallic Gold Gradient Text */
-  .text-gold-gradient {
-    background: linear-gradient(135deg, #F3E086 0%, #D4AF37 50%, #997A15 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Terracotta Fire Gradient Text */
-  .text-terracotta-gradient {
-    background: linear-gradient(135deg, #F0825B 0%, #C85A32 50%, #8C2B42 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Gold Shimmer Button Background */
-  .bg-gold-gradient {
-    background: linear-gradient(135deg, #D4AF37 0%, #C8991D 50%, #B3830E 100%);
-  }
-
-  .bg-gold-gradient:hover {
-    background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #C8991D 100%);
-  }
-
-  /* Terracotta Hero Gradient */
-  .bg-terracotta-gradient {
-    background: linear-gradient(135deg, #C85A32 0%, #99371D 50%, #6B1D2F 100%);
-  }
-
-  /* Heritage Card Glow Border */
-  .border-gold-glow {
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.08);
-  }
-
-  .border-gold-glow:hover {
-    border-color: rgba(212, 175, 55, 0.6);
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.18);
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
+.glass-panel-hover:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.12);
 }
 
-/* Background Mandala & Jali Motifs */
-.bg-mandala-pattern {
-  background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%),
-    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h40v40H40V0zM0 40h40v40H0V40z'/%3E%3Cpath d='M40 0L0 40h80L40 0zm0 80L0 40h80L40 80z'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.bg-jali-mesh {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='none' stroke='%23c85a32' stroke-opacity='0.08' stroke-width='1.5'/%3E%3Ccircle cx='30' cy='30' r='10' fill='none' stroke='%23d4af37' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0A0807;
-}
-::-webkit-scrollbar-thumb {
-  background: #362A24;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #C85A32;
-}
-
-/* Leaflet map container styling */
+/* Leaflet Map Styles */
 .leaflet-container {
   width: 100%;
   height: 100%;
-  border-radius: 1rem;
-  background-color: #0A0807;
+  border-radius: 1.5rem;
+  background-color: #0B1726;
+}
+
+/* Pulsing Red Pin Effect for Critical Risk Radar */
+@keyframes pulse-critical {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.pulse-critical-pin {
+  animation: pulse-critical 1.8s infinite;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1726;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E3A5F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F59E0B;
 }

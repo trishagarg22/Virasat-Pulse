@@ -1,40 +1,40 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import DashboardPage from './pages/DashboardPage';
-import StoriesPage from './pages/StoriesPage';
-import QuizPage from './pages/QuizPage';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import ExploreMapPage from "./pages/ExploreMapPage";
+import TimeMachinePage from "./pages/TimeMachinePage";
+import RiskRadarPage from "./pages/RiskRadarPage";
+import HeritageDetailPage from "./pages/HeritageDetailPage";
+import RescueMissionPage from "./pages/RescueMissionPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-[#14100E] text-[#F7F3E9] selection:bg-[#C85A32] selection:text-white font-sans antialiased">
-        <Routes>
-          {/* Main Dashboard has its own integrated TopBar */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/trails" element={<DashboardPage />} />
+      <Routes>
+        {/* Screen 1: Home Landing Page */}
+        <Route path="/" element={<Home />} />
 
-          {/* Standard Pages with global Navbar and Footer */}
-          <Route
-            path="/*"
-            element={
-              <>
-                <Navbar />
-                <main className="flex-1">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/stories" element={<StoriesPage />} />
-                    <Route path="/quiz" element={<QuizPage />} />
-                  </Routes>
-                </main>
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
-      </div>
+        {/* Screen 2: Explore / Heritage Map */}
+        <Route path="/explore" element={<ExploreMapPage />} />
+
+        {/* Screen 3: Heritage Time Machine */}
+        <Route path="/time-machine" element={<TimeMachinePage />} />
+
+        {/* Screen 4: Heritage Risk Radar */}
+        <Route path="/risk-radar" element={<RiskRadarPage />} />
+
+        {/* Screen 5: Heritage Detail Page */}
+        <Route path="/detail/:id" element={<HeritageDetailPage />} />
+        <Route path="/detail" element={<HeritageDetailPage />} />
+
+        {/* Screen 6: Heritage Rescue Mission */}
+        <Route path="/rescue-mission" element={<RescueMissionPage />} />
+
+        {/* Screen 7: User Profile / Settings */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/settings" element={<ProfilePage />} />
+      </Routes>
     </Router>
   );
 }
