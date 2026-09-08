@@ -10,7 +10,9 @@ import {
   Building,
   Users,
   ShieldCheck,
-  X
+  X,
+  Eye,
+  Camera
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -24,6 +26,57 @@ export default function Home() {
     { label: "500+", subtitle: "Communities", icon: Users },
     { label: "150+", subtitle: "Cities & Towns", icon: MapPin },
     { label: "1 Mission", subtitle: "Save Our Heritage", icon: ShieldCheck }
+  ];
+
+  const heritageGallery = [
+    {
+      id: "hampi-chariot",
+      title: "Hampi Stone Chariot & Vijayanagara Citadel",
+      location: "Hampi, Karnataka",
+      category: "Monuments",
+      image: "https://images.unsplash.com/photo-1600100397608-f010e423b971?auto=format&fit=crop&w=800&q=80",
+      tag: "14th Century Imperial Architecture"
+    },
+    {
+      id: "varanasi-ghats",
+      title: "Varanasi Ganges Ghats & Evening Ganga Aarti",
+      location: "Varanasi, Uttar Pradesh",
+      category: "Oral Histories",
+      image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
+      tag: "Living Sacred Tradition"
+    },
+    {
+      id: "konark-sun-temple",
+      title: "Konark Sun Temple Stone Wheels",
+      location: "Konark, Odisha",
+      category: "Monuments",
+      image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80",
+      tag: "13th Century Solar Astronomy"
+    },
+    {
+      id: "meenakshi-temple",
+      title: "Madurai Meenakshi Gopuram Sculptures",
+      location: "Madurai, Tamil Nadu",
+      category: "Art & Crafts",
+      image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
+      tag: "Dravidian Polychrome Sculptures"
+    },
+    {
+      id: "humayuns-tomb-delhi",
+      title: "Humayun's Tomb Charbagh Gardens",
+      location: "Nizamuddin, Delhi",
+      category: "Monuments",
+      image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=800&q=80",
+      tag: "Mughal Double-Dome Blueprint"
+    },
+    {
+      id: "zardozi-weavers",
+      title: "Gold Zardozi Embroidery Looms",
+      location: "Chandni Chowk, Delhi",
+      category: "Art & Crafts",
+      image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
+      tag: "Endangered Master Craft"
+    }
   ];
 
   return (
@@ -109,7 +162,7 @@ export default function Home() {
               <div className="glass-panel p-8 rounded-3xl border border-amber-500/40 max-w-md shadow-2xl relative space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-amber-400">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-                  <span>Heritage Philosophy</span>
+                  <span>CodeVirasat Philosophy</span>
                   <span className="ml-auto font-bold text-slate-400">🇮🇳 India</span>
                 </div>
 
@@ -118,7 +171,7 @@ export default function Home() {
                 </p>
 
                 <div className="pt-3 border-t border-[#1E3A5F] flex items-center justify-between text-xs text-slate-400">
-                  <span>CodeVirasat Initiative</span>
+                  <span>Rooted in Heritage, Built in Code</span>
                   <span className="text-amber-400 font-semibold">Join 500+ Communities</span>
                 </div>
               </div>
@@ -150,8 +203,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Access Section linking to Explorer & Time Machine */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* NEW: ATTRACTIVE HERITAGE VISUAL SHOWCASE GRID */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16 space-y-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#132640] border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">
+            <Camera className="w-4 h-4" />
+            <span>Living Heritage Visual Showcase</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight">
+            Discover India's <span className="text-amber-400">Timeless Masterpieces</span>
+          </h2>
+          <p className="text-slate-400 text-base max-w-2xl mx-auto leading-relaxed">
+            From 1,000-year-old carved stone temples to living artisan guilds, explore high-definition visual archives preserved on CodeVirasat.
+          </p>
+        </div>
+
+        {/* 6 High-Res Photo Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {heritageGallery.map((item) => (
+            <motion.div
+              key={item.id}
+              whileHover={{ y: -6 }}
+              className="glass-panel glass-panel-hover rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl flex flex-col justify-between group transition-all duration-300"
+            >
+              <div className="relative h-72 w-full overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1726] via-[#0B1726]/40 to-transparent" />
+                
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 rounded-full bg-[#0B1726]/80 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
+                    {item.category}
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-5 right-5 text-white space-y-1">
+                  <span className="text-[11px] font-mono text-amber-300 block">
+                    📍 {item.location}
+                  </span>
+                  <h3 className="font-serif font-bold text-xl leading-tight">
+                    {item.title}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="p-5 flex items-center justify-between border-t border-[#1E3A5F] bg-[#0A1422]">
+                <span className="text-xs text-slate-400 font-mono">{item.tag}</span>
+                <button
+                  onClick={() => navigate("/explore")}
+                  className="p-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1 shadow"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Quick Access Section linking to Explorer, Time Machine & Rescue Mission */}
+      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#1E3A5F]">
         <div className="text-center mb-12 space-y-3">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
             Explore <span className="text-amber-400">CodeVirasat Intelligence</span>
