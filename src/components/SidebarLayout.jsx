@@ -34,15 +34,15 @@ export default function SidebarLayout({ children }) {
   ];
 
   return (
-    <div className="min-h-screen flex bg-[#0B1726] text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen flex bg-[#050B14] text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950">
       
       {/* ========================================================================= */}
       {/* PERSISTENT DESKTOP LEFT SIDEBAR */}
       {/* ========================================================================= */}
-      <aside className="hidden lg:flex flex-col w-72 shrink-0 bg-[#0A1422]/95 border-r border-[#1E3A5F] p-6 justify-between fixed top-0 bottom-0 left-0 z-40 backdrop-blur-xl">
+      <aside className="hidden lg:flex flex-col w-72 shrink-0 bg-[#081220]/95 border-r border-sky-400/15 p-6 justify-between fixed top-0 bottom-0 left-0 z-40 backdrop-blur-xl">
         <div className="space-y-8">
           {/* Top Logo */}
-          <div className="pb-4 border-b border-[#1E3A5F]">
+          <div className="pb-4 border-b border-sky-400/15">
             <CodeVirasatLogo size="md" />
           </div>
 
@@ -59,10 +59,10 @@ export default function SidebarLayout({ children }) {
                   className={`flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 ${
                     isActive
                       ? "bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 font-bold scale-[1.02]"
-                      : "text-slate-300 hover:text-white hover:bg-[#132640]/80"
+                      : "text-slate-300 hover:text-white hover:bg-[#0F233F]"
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? "text-slate-950" : "text-amber-400/80"}`} />
+                  <Icon className={`w-5 h-5 ${isActive ? "text-slate-950" : "text-amber-400"}`} />
                   <span>{item.name}</span>
                 </NavLink>
               );
@@ -71,7 +71,7 @@ export default function SidebarLayout({ children }) {
         </div>
 
         {/* Pinned "Become a Heritage Guardian" CTA Card */}
-        <div className="glass-panel p-4 rounded-2xl border border-amber-500/30 text-xs space-y-3 relative overflow-hidden group">
+        <div className="glass-panel p-4 rounded-2xl border border-amber-400/30 text-xs space-y-3 relative overflow-hidden group">
           <div className="flex items-center gap-2 text-amber-400 font-bold uppercase tracking-wider text-[10px]">
             <ShieldCheck className="w-4 h-4 text-amber-400" />
             <span>Join the Mission</span>
@@ -79,7 +79,7 @@ export default function SidebarLayout({ children }) {
           <h4 className="font-serif font-bold text-slate-100 text-sm leading-tight">
             Become a Heritage Guardian
           </h4>
-          <p className="text-slate-400 text-[11px] leading-relaxed">
+          <p className="text-slate-300 text-[11px] leading-relaxed">
             Record oral lore, upload old photos, and protect endangered crafts.
           </p>
           <Link
@@ -107,14 +107,14 @@ export default function SidebarLayout({ children }) {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 250 }}
-              className="relative w-80 max-w-[85%] bg-[#0A1422] border-r border-[#1E3A5F] p-6 flex flex-col justify-between z-10 h-full overflow-y-auto"
+              className="relative w-80 max-w-[85%] bg-[#081220] border-r border-sky-400/15 p-6 flex flex-col justify-between z-10 h-full overflow-y-auto"
             >
               <div className="space-y-6">
-                <div className="flex items-center justify-between pb-4 border-b border-[#1E3A5F]">
+                <div className="flex items-center justify-between pb-4 border-b border-sky-400/15">
                   <CodeVirasatLogo size="md" />
                   <button
                     onClick={() => setIsMobileOpen(false)}
-                    className="p-2 rounded-xl text-slate-300 hover:bg-[#132640]"
+                    className="p-2 rounded-xl text-slate-300 hover:bg-[#0F233F]"
                   >
                     <X className="w-6 h-6 text-amber-400" />
                   </button>
@@ -133,7 +133,7 @@ export default function SidebarLayout({ children }) {
                         className={`flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                           isActive
                             ? "bg-amber-500 text-slate-950 shadow-md font-bold"
-                            : "text-slate-300 hover:bg-[#132640]"
+                            : "text-slate-300 hover:bg-[#0F233F]"
                         }`}
                       >
                         <Icon className={`w-5 h-5 ${isActive ? "text-slate-950" : "text-amber-400"}`} />
@@ -144,7 +144,7 @@ export default function SidebarLayout({ children }) {
                 </nav>
               </div>
 
-              <div className="glass-panel p-4 rounded-2xl border border-amber-500/30 text-xs space-y-3 mt-6">
+              <div className="glass-panel p-4 rounded-2xl border border-amber-400/30 text-xs space-y-3 mt-6">
                 <span className="text-[10px] text-amber-400 font-bold uppercase">Heritage Guardian</span>
                 <h4 className="font-serif font-bold text-white">Join the Mission</h4>
                 <Link
@@ -166,7 +166,7 @@ export default function SidebarLayout({ children }) {
       <div className="flex-1 lg:pl-72 flex flex-col min-w-0">
         
         {/* Top Header Bar inside Main Area */}
-        <header className="sticky top-0 z-30 bg-[#0B1726]/90 backdrop-blur-md border-b border-[#1E3A5F] px-4 sm:px-8 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-30 bg-[#050B14]/90 backdrop-blur-xl border-b border-sky-400/15 px-4 sm:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Mobile Hamburger Button */}
             <button
