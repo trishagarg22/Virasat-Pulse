@@ -26,13 +26,13 @@
   --color-status-critical: #EF4444;
 }
 
-/* Global Body Styling (Navy Blue Base + Glassmorphism Grid Overlay) */
+/* Global Body Styling (Deep Near-Black Navy Base + Multi-stop Radial Gradient) */
 body {
-  background-color: #0B1726;
+  background-color: #050B14;
   background-image: 
-    radial-gradient(circle 800px at 50% -100px, rgba(30, 58, 95, 0.45) 0%, rgba(15, 31, 51, 0.3) 50%, transparent 80%),
-    radial-gradient(circle 600px at 100% 40%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
-    radial-gradient(circle 600px at 0% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
+    radial-gradient(ellipse 90% 70% at 50% 20%, #12253F 0%, #0B1729 45%, #050B14 100%),
+    radial-gradient(circle 800px at 90% 30%, rgba(245, 158, 11, 0.07) 0%, transparent 60%),
+    radial-gradient(circle 700px at 10% 70%, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
   background-attachment: fixed;
   color: #F8FAFC;
   min-height: 100vh;
@@ -41,15 +41,16 @@ body {
 
 /* Glassmorphism Panel Utilities */
 .glass-panel {
-  background: rgba(19, 36, 56, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(245, 158, 11, 0.18);
+  background: rgba(15, 35, 63, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  box-shadow: 0 10px 30px -10px rgba(5, 11, 20, 0.8);
 }
 
 .glass-panel-hover:hover {
-  border-color: rgba(245, 158, 11, 0.45);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 12px 35px -5px rgba(245, 158, 11, 0.15), 0 0 15px rgba(56, 189, 248, 0.1);
 }
 
 /* Leaflet Map Styles */
@@ -57,7 +58,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 1.5rem;
-  background-color: #0B1726;
+  background-color: #050B14;
 }
 
 /* Pulsing Red Pin Effect for Critical Risk Radar */
@@ -83,10 +84,10 @@ body {
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B1726;
+  background: #050B14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E3A5F;
+  background: #12253F;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

@@ -7,7 +7,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0B1726]/90 backdrop-blur-md border-b border-[#1E3A5F] px-4 sm:px-8 py-3.5">
+    <header className="sticky top-0 z-50 bg-[#050B14]/90 backdrop-blur-xl border-b border-sky-400/15 px-4 sm:px-8 py-3.5 shadow-xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         {/* Brand Logo */}
